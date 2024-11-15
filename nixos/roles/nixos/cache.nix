@@ -9,10 +9,10 @@
 
   systemd.timers."nix-cache-build" = {
     wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "weekly";
-        Unit = "nix-cache-build.service";
-      };
+    timerConfig = {
+      OnCalendar = "weekly";
+      Unit = "nix-cache-build.service";
+    };
   };
   systemd.services."nix-cache-build" = {
     script = ''

@@ -1,4 +1,9 @@
-{ config, pkgs, snowflake, ... }:
+{
+  config,
+  pkgs,
+  snowflake,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -7,7 +12,8 @@ let
     url = "https://raw.githubusercontent.com/simple-icons/simple-icons/aaddf57e792cd70c2bfe44cb5ac13f4331dfd583/icons/discord.svg";
     sha256 = "sha256:1mck6h5khkw27fmy429v1zf0h4slzgc8ra3ws4vzxwgar5r4ndhx";
   };
-in {
+in
+{
   # Webcord
   home.file.".local/share/applications/discord.desktop" = {
     enable = true;

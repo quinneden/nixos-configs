@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-  [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../server.nix
     ../../../roles/sshd.nix
@@ -35,7 +35,10 @@
       peers = [
         {
           publicKey = "3oM6JqkTEG34mDB6moDPRrhiRUtW3EqYGQXvb3/gzXc=";
-          allowedIPs = [ "10.50.50.0/24" "10.51.51.0/24" ];
+          allowedIPs = [
+            "10.50.50.0/24"
+            "10.51.51.0/24"
+          ];
           endpoint = "10.0.50.50:51820";
           persistentKeepalive = 25;
         }

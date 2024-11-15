@@ -2,7 +2,8 @@
 
 let
   system = pkgs.system;
-in {
+in
+{
   description = "Spencer Heywood";
   name = "heywoodlh";
   home = "/Users/heywoodlh";

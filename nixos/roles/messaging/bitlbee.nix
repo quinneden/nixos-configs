@@ -28,10 +28,10 @@
   # Restart signald daily
   systemd.timers."restart-signald" = {
     wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "daily";
-        Unit = "restart-signald.service";
-      };
+    timerConfig = {
+      OnCalendar = "daily";
+      Unit = "restart-signald.service";
+    };
   };
   systemd.services."restart-signald" = {
     script = ''
@@ -43,7 +43,6 @@
       User = "root";
     };
   };
-
 
   users.groups.signald.members = [
     "bitlbee"

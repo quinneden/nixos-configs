@@ -4,7 +4,8 @@ let
   kubeMasterIP = "192.168.1.215";
   kubeMasterHostname = "nix-precision";
   kubeMasterAPIServerPort = 6443;
-in {
+in
+{
   # resolve master hostname
   networking.extraHosts = "${kubeMasterIP} ${kubeMasterHostname}";
 
@@ -16,7 +17,10 @@ in {
   ];
 
   services.kubernetes = {
-    roles = ["master" "node"];
+    roles = [
+      "master"
+      "node"
+    ];
     masterAddress = kubeMasterHostname;
     apiserverAddress = "https://${kubeMasterHostname}:${toString kubeMasterAPIServerPort}";
     easyCerts = true;

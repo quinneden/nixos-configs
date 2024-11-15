@@ -1,4 +1,13 @@
-{ config, pkgs, lib, home-manager, nur, myFlakes, ts-warp-nixpkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  nur,
+  myFlakes,
+  ts-warp-nixpkgs,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -36,15 +45,20 @@ let
       fi
     fi
   '';
-  newsboat_browser_config = if pkgs.stdenv.isDarwin then ''
-    browser "open %u"
-  ''
-  else ''
-    browser "${pkgs.xdg-utils}/bin/xdg-open %u"
-  '';
-  gomuks_keybindings_file = if pkgs.stdenv.isDarwin
-  then "Library/Application Support/gomuks/keybindings.yaml"
-  else ".config/gomuks/keybindings.yaml";
+  newsboat_browser_config =
+    if pkgs.stdenv.isDarwin then
+      ''
+        browser "open %u"
+      ''
+    else
+      ''
+        browser "${pkgs.xdg-utils}/bin/xdg-open %u"
+      '';
+  gomuks_keybindings_file =
+    if pkgs.stdenv.isDarwin then
+      "Library/Application Support/gomuks/keybindings.yaml"
+    else
+      ".config/gomuks/keybindings.yaml";
   op-wrapper = pkgs.writeShellScript "op-wrapper.sh" ''
     env | grep -iqE "^OP_SESSION" || eval $(${pkgs._1password-cli}/bin/op signin) && export OP_SESSION
     ${pkgs._1password-cli}/bin/op --account my "$@"
@@ -53,14 +67,16 @@ let
     url = "https://raw.githubusercontent.com/heywoodlh/1password-pass-backup/c938124eff5dddd3aad226a5a5a6ae65441211b7/backup.sh";
     sha256 = "sha256:12cbni566245m513r2w8lng11gzbl148mlnlscwzwbkxhpacwz9d";
   };
-  op-backup-dir = if pkgs.stdenv.isDarwin then
-    "${homeDir}/Library/Mobile\\ Documents/com~apple~CloudDocs/password-store"
-  else
-    "${homeDir}/.password-store";
-  op-backup-dir-no-format = if pkgs.stdenv.isDarwin then
-    "${homeDir}/Library/Mobile Documents/com~apple~CloudDocs/password-store"
-  else
-    "${homeDir}/.password-store";
+  op-backup-dir =
+    if pkgs.stdenv.isDarwin then
+      "${homeDir}/Library/Mobile\\ Documents/com~apple~CloudDocs/password-store"
+    else
+      "${homeDir}/.password-store";
+  op-backup-dir-no-format =
+    if pkgs.stdenv.isDarwin then
+      "${homeDir}/Library/Mobile Documents/com~apple~CloudDocs/password-store"
+    else
+      "${homeDir}/.password-store";
   op-backup = pkgs.writeShellScriptBin "op-backup" ''
     bash ${op-backup-script} l.spencer.heywood@protonmail.com ${op-backup-dir}
   '';
@@ -101,14 +117,18 @@ let
   ts-warp = ts-warp-nixpkgs.legacyPackages.${system}.ts-warp;
   ts-warp-pf = ./share/ts-warp_pf.conf;
   ts-warp-ini = ./share/ts-warp.ini;
-  incognito = if pkgs.stdenv.isDarwin then pkgs.writeShellScriptBin "incognito" ''
-    test -d /usr/local/etc || sudo mkdir -p /usr/local/etc
-    test -f /usr/local/etc/ts-warp_pf.conf || sudo cp ${ts-warp-pf} /usr/local/etc/ts-warp_pf.conf
-    test -f /usr/local/etc/ts-warp.ini || sudo cp ${ts-warp-ini} /usr/local/etc/ts-warp.ini
-    sudo ${ts-warp}/etc/ts-warp.sh start
-  '' else pkgs.writeShellScriptBin "incognito" ''
-    ${pkgs.proxychains-ng}/bin/proxychains4 -f ${tor-proxychains-conf} ${myFish}/bin/fish --private
-  '';
+  incognito =
+    if pkgs.stdenv.isDarwin then
+      pkgs.writeShellScriptBin "incognito" ''
+        test -d /usr/local/etc || sudo mkdir -p /usr/local/etc
+        test -f /usr/local/etc/ts-warp_pf.conf || sudo cp ${ts-warp-pf} /usr/local/etc/ts-warp_pf.conf
+        test -f /usr/local/etc/ts-warp.ini || sudo cp ${ts-warp-ini} /usr/local/etc/ts-warp.ini
+        sudo ${ts-warp}/etc/ts-warp.sh start
+      ''
+    else
+      pkgs.writeShellScriptBin "incognito" ''
+        ${pkgs.proxychains-ng}/bin/proxychains4 -f ${tor-proxychains-conf} ${myFish}/bin/fish --private
+      '';
   tarsnap-key-backup = pkgs.writeShellScriptBin "tarsnap-key-backup.sh" ''
     hosts=("nix-drive" "nix-nvidia" "nixos-gaming" "nixos-mac-mini")
     op_item="fp5jsqodjv3gzlwtlgojays7qe"
@@ -162,7 +182,8 @@ let
     cp ${docker-compose-txt} "$1"
     [[ -f "$1" ]] && chmod +w "$1"
   '';
-in {
+in
+{
   home.stateVersion = "24.05";
   home.enableNixpkgsReleaseCheck = false;
   nix = {
@@ -479,22 +500,26 @@ in {
   };
 
   # nostui wrapper
-  home.file."bin/nostui" = let
-    configDir = if pkgs.stdenv.isDarwin then
-    "${homeDir}/Library/Application Support/io.0m1.nostui"
-    else "${homeDir}/.config/nostui";
-  in {
-    executable = true;
-    text = ''
-      #!/usr/bin/env fish
-      if ! test -e "${configDir}"/config.json
-        mkdir -p "${configDir}"
-        op-unlock
-        ${op-wrapper} item get ttqmeotpae3h77q7mh7dqdxy4u --fields config | sed 's/""/"/g' | sed 's/^"{/{/g' | sed 's/}"$/}/g' > "${configDir}"/config.json
-      end
-      nix run "github:heywoodlh/nixpkgs/nostui-init#nostui" -- $argv
-    '';
-  };
+  home.file."bin/nostui" =
+    let
+      configDir =
+        if pkgs.stdenv.isDarwin then
+          "${homeDir}/Library/Application Support/io.0m1.nostui"
+        else
+          "${homeDir}/.config/nostui";
+    in
+    {
+      executable = true;
+      text = ''
+        #!/usr/bin/env fish
+        if ! test -e "${configDir}"/config.json
+          mkdir -p "${configDir}"
+          op-unlock
+          ${op-wrapper} item get ttqmeotpae3h77q7mh7dqdxy4u --fields config | sed 's/""/"/g' | sed 's/^"{/{/g' | sed 's/}"$/}/g' > "${configDir}"/config.json
+        end
+        nix run "github:heywoodlh/nixpkgs/nostui-init#nostui" -- $argv
+      '';
+    };
 
   # Helix configuration
   #programs.helix = {

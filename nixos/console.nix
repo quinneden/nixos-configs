@@ -1,7 +1,16 @@
-{ config, pkgs, lib, home-manager,
-  nur, hyprland, nixpkgs-backports,
-  nixpkgs-lts, myFlakes, flatpaks,
-  ... }:
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  nur,
+  hyprland,
+  nixpkgs-backports,
+  nixpkgs-lts,
+  myFlakes,
+  flatpaks,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -25,7 +34,8 @@ let
   wifi = pkgs.writeShellScriptBin "wifi" ''
     ${pkgs.networkmanager}/bin/nmtui $@
   '';
-in {
+in
+{
   imports = [
     ./base.nix
     home-manager.nixosModules.home-manager
@@ -43,7 +53,10 @@ in {
   ];
 
   boot = {
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = [
+      "quiet"
+      "splash"
+    ];
     plymouth.enable = true;
     consoleLogLevel = 0;
     initrd.verbose = false;
@@ -140,13 +153,24 @@ in {
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hack" "DroidSansMono" "Iosevka" "JetBrainsMono" ]; })
+    (nerdfonts.override {
+      fonts = [
+        "Hack"
+        "DroidSansMono"
+        "Iosevka"
+        "JetBrainsMono"
+      ];
+    })
   ];
 
   users.users.heywoodlh = {
     isNormalUser = true;
     description = "Spencer Heywood";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "adbusers"
+    ];
     shell = "${myZellij}/bin/zellij";
     homeMode = "755";
   };
@@ -183,15 +207,17 @@ in {
       inherit myFlakes;
       inherit nixpkgs-lts;
     };
-    users.heywoodlh = { ... }: {
-      imports = [
-        ../home/linux.nix
-        flatpaks.homeManagerModules.default
-      ];
-      home.packages = [
-        myFlakes.packages.${system}.git
-      ];
-    };
+    users.heywoodlh =
+      { ... }:
+      {
+        imports = [
+          ../home/linux.nix
+          flatpaks.homeManagerModules.default
+        ];
+        home.packages = [
+          myFlakes.packages.${system}.git
+        ];
+      };
   };
 
   programs.nix-index.enable = true;

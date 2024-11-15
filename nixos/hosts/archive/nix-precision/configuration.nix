@@ -1,10 +1,16 @@
-{ config, pkgs, nixpkgs-backports, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs-backports,
+  ...
+}:
 
 let
   system = pkgs.system;
-in {
-  imports =
-  [ # Include the results of the hardware scan.
+in
+{
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../server.nix
     ../../roles/virtualization/libvirt.nix
@@ -41,7 +47,7 @@ in {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.utf8";
 
-    # Enable auto upgrade
+  # Enable auto upgrade
   system.autoUpgrade = {
     enable = true;
     flake = "github:heywoodlh/nixos-configs#nix-precision";
@@ -50,7 +56,12 @@ in {
   fileSystems."/media/virtual-machines-2" = {
     device = "/dev/disk/by-uuid/b1d9e75f-df2c-4ec0-a691-71aebf100cd6";
     fsType = "ext4";
-    options = [ "discard" "noatime" "commit=600" "errors=remount-ro" ];
+    options = [
+      "discard"
+      "noatime"
+      "commit=600"
+      "errors=remount-ro"
+    ];
   };
 
   virtualisation.oci-containers.containers.scrutiny.extraOptions = [
@@ -69,7 +80,7 @@ in {
     driSupport = true;
     driSupport32Bit = true;
   };
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
   };

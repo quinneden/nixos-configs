@@ -1,13 +1,18 @@
 # Config specific to Razer Blade 15
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../desktop.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../desktop.nix
+  ];
 
   boot.kernelParams = [ "button.lid_init_state=open" ];
 

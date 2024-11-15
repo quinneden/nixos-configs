@@ -1,4 +1,11 @@
-{ config, lib, pkgs, qutebrowser, myFlakes, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  qutebrowser,
+  myFlakes,
+  ...
+}:
 
 with lib;
 
@@ -7,7 +14,8 @@ let
   system = pkgs.system;
   homeDir = config.home.homeDirectory;
   qutebrowser-config = myFlakes.packages.${system}.qutebrowser-config;
-in {
+in
+{
   options = {
     heywoodlh.home.qutebrowser = {
       enable = mkOption {
@@ -33,10 +41,11 @@ in {
     ];
     programs.qutebrowser = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then
-        pkgs.runCommand "qutebrowser-0.0.0" { } "mkdir $out"
-      else
-        pkgs.qutebrowser;
+      package =
+        if pkgs.stdenv.isDarwin then
+          pkgs.runCommand "qutebrowser-0.0.0" { } "mkdir $out"
+        else
+          pkgs.qutebrowser;
       quickmarks = {
         home-manager-config = "https://nix-community.github.io/home-manager/options.xhtml";
         nix-darwin-config = "https://daiderd.com/nix-darwin/manual/index.html#sec-options";

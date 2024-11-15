@@ -1,4 +1,10 @@
-{ config, pkgs, home-manager, lib, ... }:
+{
+  config,
+  pkgs,
+  home-manager,
+  lib,
+  ...
+}:
 
 {
   programs.starship.enable = lib.mkForce false;

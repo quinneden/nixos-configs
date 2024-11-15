@@ -31,7 +31,8 @@ let
         done
     fi
   '';
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     tarsnap
     tarsnapList
@@ -45,7 +46,7 @@ in {
     package = pkgs.tarsnap;
     keyfile = "/root/tarsnap.key";
     archives = {
-      nixos =  {
+      nixos = {
         cachedir = "/var/cache/tarsnap/nixos-archive";
         directories = [
           "/etc"

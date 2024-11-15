@@ -1,5 +1,11 @@
 # Config specific to NixOS on WSL
-{ config, pkgs, lib, nixos-wsl, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nixos-wsl,
+  ...
+}:
 
 {
   imports = [

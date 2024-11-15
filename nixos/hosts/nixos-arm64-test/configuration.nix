@@ -2,9 +2,10 @@
 
 let
   hostname = "nixos-arm64-vm";
-in {
-  imports =
-  [ # Include the results of the hardware scan.
+in
+{
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../desktop.nix
   ];

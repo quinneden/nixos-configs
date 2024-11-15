@@ -2,7 +2,11 @@
 
 {
   networking = {
-    knownNetworkServices = ["Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge"];
+    knownNetworkServices = [
+      "Wi-Fi"
+      "Bluetooth PAN"
+      "Thunderbolt Bridge"
+    ];
   };
   services.tailscale.enable = true;
 }

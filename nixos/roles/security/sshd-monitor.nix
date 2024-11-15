@@ -19,7 +19,8 @@ let
     done
   '';
 
-in {
+in
+{
   services.openssh.settings.LogLevel = "VERBOSE";
   services.openssh.extraConfig = ''
     SyslogFacility AUTHPRIV

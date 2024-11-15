@@ -1,9 +1,16 @@
-{ config, pkgs, lib, home-manager, nur, ... }:
-
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  nur,
+  ...
+}:
 
 let
   username = "heywoodlh";
-in {
+in
+{
   imports = [
     ../roles/m1.nix
     ../roles/defaults.nix
@@ -14,7 +21,10 @@ in {
   ];
 
   # Define user settings
-  users.users.${username} = import ../roles/user.nix { inherit config; inherit pkgs; };
+  users.users.${username} = import ../roles/user.nix {
+    inherit config;
+    inherit pkgs;
+  };
 
   # Set home-manager configs for username
   home-manager.users.${username} = import ../home/user.nix;

@@ -1,10 +1,19 @@
-{ config, pkgs, home-manager, nur, lib, myFlakes, ... }:
+{
+  config,
+  pkgs,
+  home-manager,
+  nur,
+  lib,
+  myFlakes,
+  ...
+}:
 
 let
   system = pkgs.system;
   homeDir = config.home.homeDirectory;
   myZellij = myFlakes.packages.${system}.zellij;
-in {
+in
+{
   imports = [
     ./base.nix
     ./desktop.nix
@@ -13,8 +22,7 @@ in {
   home.file."bin/battpop.sh" = {
     enable = true;
     executable = true;
-    text = ''
-    '';
+    text = '''';
   };
 
   home.packages = [
@@ -68,17 +76,17 @@ in {
   #1Password config
   home.file.".config/git/config" = {
     text = ''
-[user]
-  signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCYn+7oSNHXN3qqDDidw42Vv7fDS0iEpYqaa0wCXRPBlfWAnD81f6dxj/QPGfZtxpl9jvk7nAKpE7RVUvQiJzUC2VM3Bw/4ucT+xliEHo3oesMQQa1AT70VPTbP5PdU7oUpgQWLq39j9XHno2YPJ/WWtuOl/UTjY6IDokkAmNmvft/jqqkiwSkGMmw68qrLFEM7+rNwJV5cXKvvpB6Gqc7qnbJmk1TZ1MRGW5eLjP9ofDqiyoLbnTm7Dw3iHn40GgTcnv5CWGpa0vrKnnLEGrgRB7kR/pyvfsjapkHz0PDvuinQov+MgJfV8B8PHdPC94dsS0DEWJplxhYojtsYa1VZy5zTEMNWICz1QG1yKHN1JQtpbEreHG6DVYvqwnKvK/XN5yiEeiamhD2oKnSh36PexIR0h0AAPO29Ln+anqpRlqJ0nET2CNS04e0vpV4VDJrG6BnyGUQ6CCo7THSq97F4Ne0nY9fpYu5WTFTCh1tTm+nSey0fP/xk22oINl/41VTI/Vk5pNQuuhHUvQupJHw9cD74aKzRddwvgfuAQjPlEuxxsqgFTltTiPF6lZQNeoMIc1OMCRsnl1xNqIepnb7Q5O1CGq+BqtOWh3G4/SPQI5ZUIkOAZegsnPpGWYMrRd7s6LJn5LrBYaY6IvRxmpGOig3tjOUy3fqk7coyTeJXmQ==
+      [user]
+        signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCYn+7oSNHXN3qqDDidw42Vv7fDS0iEpYqaa0wCXRPBlfWAnD81f6dxj/QPGfZtxpl9jvk7nAKpE7RVUvQiJzUC2VM3Bw/4ucT+xliEHo3oesMQQa1AT70VPTbP5PdU7oUpgQWLq39j9XHno2YPJ/WWtuOl/UTjY6IDokkAmNmvft/jqqkiwSkGMmw68qrLFEM7+rNwJV5cXKvvpB6Gqc7qnbJmk1TZ1MRGW5eLjP9ofDqiyoLbnTm7Dw3iHn40GgTcnv5CWGpa0vrKnnLEGrgRB7kR/pyvfsjapkHz0PDvuinQov+MgJfV8B8PHdPC94dsS0DEWJplxhYojtsYa1VZy5zTEMNWICz1QG1yKHN1JQtpbEreHG6DVYvqwnKvK/XN5yiEeiamhD2oKnSh36PexIR0h0AAPO29Ln+anqpRlqJ0nET2CNS04e0vpV4VDJrG6BnyGUQ6CCo7THSq97F4Ne0nY9fpYu5WTFTCh1tTm+nSey0fP/xk22oINl/41VTI/Vk5pNQuuhHUvQupJHw9cD74aKzRddwvgfuAQjPlEuxxsqgFTltTiPF6lZQNeoMIc1OMCRsnl1xNqIepnb7Q5O1CGq+BqtOWh3G4/SPQI5ZUIkOAZegsnPpGWYMrRd7s6LJn5LrBYaY6IvRxmpGOig3tjOUy3fqk7coyTeJXmQ==
 
-[gpg]
-  format = ssh
+      [gpg]
+        format = ssh
 
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+      [gpg "ssh"]
+        program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
-[commit]
-  gpgsign = true
+      [commit]
+        gpgsign = true
     '';
   };
 
@@ -111,15 +119,19 @@ in {
   };
 
   nix = {
-    settings = let
-      # only have foreign arch because $(arch)-linux is covered by linux-builder
-      myBuilders = if pkgs.system == "aarch64-darwin" then
-        "ssh://heywoodlh@macos-intel-vm x86_64-darwin ; ssh://heywoodlh@nix-nvidia x86_64-linux ; ssh://builder@linux-builder aarch64-linux" else
-        "ssh://heywoodlh@mac-mini aarch64-darwin ; ssh://heywoodlh@nixos-mac-mini aarch64-linux ; ssh://builder@linux-builder x86_64-linux";
-    in {
-      # Before you can use these, run the following command:
-      # sudo -E ssh heywoodlh@nix-nvidia; sudo -E ssh heywoodlh@nixos-mac-mini; sudo -E ssh heywoodlh@mac-mini; sudo -E ssh heywoodlh@macos-intel-vm
-      builders = "${myBuilders}";
-    };
+    settings =
+      let
+        # only have foreign arch because $(arch)-linux is covered by linux-builder
+        myBuilders =
+          if pkgs.system == "aarch64-darwin" then
+            "ssh://heywoodlh@macos-intel-vm x86_64-darwin ; ssh://heywoodlh@nix-nvidia x86_64-linux ; ssh://builder@linux-builder aarch64-linux"
+          else
+            "ssh://heywoodlh@mac-mini aarch64-darwin ; ssh://heywoodlh@nixos-mac-mini aarch64-linux ; ssh://builder@linux-builder x86_64-linux";
+      in
+      {
+        # Before you can use these, run the following command:
+        # sudo -E ssh heywoodlh@nix-nvidia; sudo -E ssh heywoodlh@nixos-mac-mini; sudo -E ssh heywoodlh@mac-mini; sudo -E ssh heywoodlh@macos-intel-vm
+        builders = "${myBuilders}";
+      };
   };
 }

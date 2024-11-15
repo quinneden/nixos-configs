@@ -1,10 +1,18 @@
 # Remember that this is used for GitHub Actions to test builds
-{ config, pkgs, lib, home-manager, nur, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  nur,
+  ...
+}:
 
 let
   hostname = "mac-vm";
   username = "heywoodlh";
-in {
+in
+{
   imports = [
     ../roles/defaults.nix
     ../roles/pkgs.nix
@@ -14,7 +22,10 @@ in {
   ];
 
   # Define user settings
-  users.users.${username} = import ../roles/user.nix { inherit config; inherit pkgs; };
+  users.users.${username} = import ../roles/user.nix {
+    inherit config;
+    inherit pkgs;
+  };
 
   # Set home-manager configs for username
   home-manager.users.${username} = import ../../home/darwin.nix;

@@ -1,9 +1,19 @@
 # Remember that this is used for GitHub Actions to test builds
-{ config, pkgs, lib, home-manager, nur, myFlakes, mullvad-browser-home-manager, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  nur,
+  myFlakes,
+  mullvad-browser-home-manager,
+  ...
+}:
 
 let
   hostname = "nix-mac-mini";
-in {
+in
+{
   imports = [
     ../roles/base.nix
     ../roles/defaults.nix

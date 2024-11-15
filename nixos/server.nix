@@ -1,9 +1,13 @@
-{ config, pkgs,
-  home-manager, nur,
+{
+  config,
+  pkgs,
+  home-manager,
+  nur,
   myFlakes,
   nixpkgs-backports,
   comin,
-  ... }:
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -12,7 +16,8 @@ let
   myVim = myFlakes.packages.${system}.vim;
   myGit = myFlakes.packages.${system}.git;
   myHelix = myFlakes.packages.${system}.helix;
-in {
+in
+{
   imports = [
     home-manager.nixosModule
     comin.nixosModules.comin
@@ -95,12 +100,14 @@ in {
     extraSpecialArgs = {
       inherit myFlakes;
     };
-    users.heywoodlh = { ... }: {
-      imports = [
-        ../home/linux.nix
-      ];
-      services.ssh-agent.enable = true;
-    };
+    users.heywoodlh =
+      { ... }:
+      {
+        imports = [
+          ../home/linux.nix
+        ];
+        services.ssh-agent.enable = true;
+      };
   };
 
   # Allow heywoodlh to run sudo commands without password
@@ -112,12 +119,14 @@ in {
   # Stage CI/CD
   services.comin = {
     #enable = true; # Assume opt-in
-    remotes = [{
-      name = "origin";
-      url = "https://github.com/heywoodlh/nixos-configs.git";
-      branches.main.name = "master";
-      poller.period = 86400; # Auto-update every 24 hours
-    }];
+    remotes = [
+      {
+        name = "origin";
+        url = "https://github.com/heywoodlh/nixos-configs.git";
+        branches.main.name = "master";
+        poller.period = 86400; # Auto-update every 24 hours
+      }
+    ];
   };
 
   nix.gc = {

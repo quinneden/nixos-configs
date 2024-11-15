@@ -1,4 +1,10 @@
-{ config, pkgs, lib, nixos-apple-silicon, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nixos-apple-silicon,
+  ...
+}:
 
 {
   imports = [

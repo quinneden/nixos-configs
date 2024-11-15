@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -134,7 +139,8 @@ let
       sketchybar -m --set "$NAME" label="" drawing=off
     fi
   '';
-in {
+in
+{
 
   options = {
     heywoodlh.darwin.sketchybar.enable = mkOption {

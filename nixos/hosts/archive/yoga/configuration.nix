@@ -1,13 +1,19 @@
 # Config specific to Lenovo Thinkpad Yoga
 
-{ config, pkgs, lib, spicetify, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  spicetify,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../desktop.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../desktop.nix
+  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -32,7 +38,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       vaapiVdpau
       libvdpau-va-gl
     ];
@@ -64,7 +70,10 @@
   # Hardware config specific to Lenovo Yoga 7i
   # Arch Wiki was helpful: https://wiki.archlinux.org/title/Lenovo_Yoga_7i
   hardware.sensor.iio.enable = true;
-  boot.kernelParams = [ "mem_sleep_default=s2idle" "ideapad_laptop" ];
+  boot.kernelParams = [
+    "mem_sleep_default=s2idle"
+    "ideapad_laptop"
+  ];
   services.power-profiles-daemon.enable = true;
 
   # Set version of NixOS to target

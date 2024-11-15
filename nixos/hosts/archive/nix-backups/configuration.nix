@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-  [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../server.nix
     ../../roles/backups/rsnapshot.nix
@@ -28,7 +28,10 @@
       peers = [
         {
           publicKey = "3oM6JqkTEG34mDB6moDPRrhiRUtW3EqYGQXvb3/gzXc=";
-          allowedIPs = [ "10.50.50.0/24" "10.51.51.0/24" ];
+          allowedIPs = [
+            "10.50.50.0/24"
+            "10.51.51.0/24"
+          ];
           endpoint = "209.213.47.169:51820";
           persistentKeepalive = 25;
         }
@@ -74,8 +77,6 @@
     "--device=/dev/sda"
     "--device=/dev/sdb"
   ];
-
-
 
   system.stateVersion = "22.11";
 }

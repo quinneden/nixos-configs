@@ -1,4 +1,9 @@
-{ config, pkgs, attic, ... }:
+{
+  config,
+  pkgs,
+  attic,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -31,7 +36,8 @@ let
   populateWrapper = pkgs.writeShellScriptBin "nixos-cache-populate" ''
     sudo ${populateCache}/bin/nixos-cache-populate
   '';
-in {
+in
+{
   environment.systemPackages = [
     atticClient
     configureCache
@@ -39,10 +45,10 @@ in {
   ];
   systemd.timers."populate-cache" = {
     wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "daily";
-        Unit = "populate-cache.service";
-      };
+    timerConfig = {
+      OnCalendar = "daily";
+      Unit = "populate-cache.service";
+    };
   };
   systemd.services."populate-cache" = {
     script = ''
@@ -59,5 +65,6 @@ in {
   };
 
   # Allow cross compile
-  boot.binfmt.emulatedSystems = if system == "aarch64-linux" then [ "x86_64-linux" ] else [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems =
+    if system == "aarch64-linux" then [ "x86_64-linux" ] else [ "aarch64-linux" ];
 }

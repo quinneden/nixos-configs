@@ -1,4 +1,10 @@
-{ lib, config, pkgs, osquery-fix-nixpkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  osquery-fix-nixpkgs,
+  ...
+}:
 
 let
   secret = pkgs.fetchurl {
@@ -10,7 +16,8 @@ let
     sha256 = "sha256-n6wRM5SXALOaJNwXsyc29tED2OnjwQzNk/Z5yckCqLU=";
   };
   system = pkgs.system;
-in {
+in
+{
   services.osquery = {
     enable = false; # Until openssl is fixed
     flags = {

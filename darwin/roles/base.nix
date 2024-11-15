@@ -1,4 +1,13 @@
-{ config, pkgs, home-manager, mullvad-browser-home-manager, myFlakes, ts-warp-nixpkgs, qutebrowser, ... }:
+{
+  config,
+  pkgs,
+  home-manager,
+  mullvad-browser-home-manager,
+  myFlakes,
+  ts-warp-nixpkgs,
+  qutebrowser,
+  ...
+}:
 {
   # Define user settings
   users.users.heywoodlh = import ../roles/user.nix {
@@ -19,13 +28,15 @@
       inherit qutebrowser;
     };
     # Set home-manager configs for heywoodlh
-    users.heywoodlh = { ... }: {
-      imports = [
-        (mullvad-browser-home-manager + /modules/programs/mullvad-browser.nix)
-        ../../home/darwin.nix
-        ../../home/roles/atuin.nix
-      ];
-    };
+    users.heywoodlh =
+      { ... }:
+      {
+        imports = [
+          (mullvad-browser-home-manager + /modules/programs/mullvad-browser.nix)
+          ../../home/darwin.nix
+          ../../home/roles/atuin.nix
+        ];
+      };
   };
 
   environment.etc."ssh/ssh_config".text = ''

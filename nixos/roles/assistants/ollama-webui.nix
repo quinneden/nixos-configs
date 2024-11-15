@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 11434 18080 ];
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
+    11434
+    18080
+  ];
 
   # Enable docker-nvidia
   hardware.opengl.driSupport32Bit = true;
@@ -29,7 +32,7 @@
         environment = {
           OLLAMA_API_BASE_URL = "http://localhost:11434/api";
           OLLAMA_WEBUI_PORT = "18080";
-          WEBUI_SECRET_KEY= "";
+          WEBUI_SECRET_KEY = "";
           SCARF_NO_ANALYTICS = "true";
           DO_NOT_TRACK = "true";
         };

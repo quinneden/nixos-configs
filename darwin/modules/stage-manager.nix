@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.heywoodlh.darwin.stage-manager;
   system = pkgs.system;
-in {
+in
+{
   options = {
     heywoodlh.darwin.stage-manager = {
       enable = mkOption {

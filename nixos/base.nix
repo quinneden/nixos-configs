@@ -1,14 +1,24 @@
 # Configuration loaded for all NixOS hosts
-{ config, pkgs, nixpkgs-stable, lib, stdenv, nur, nixpkgs-wazuh-agent, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs-stable,
+  lib,
+  stdenv,
+  nur,
+  nixpkgs-wazuh-agent,
+  ...
+}:
 
 let
   system = pkgs.system;
-  wazuhPkg = pkgs.callPackage ./pkgs/wazuh.nix {};
+  wazuhPkg = pkgs.callPackage ./pkgs/wazuh.nix { };
   stable-pkgs = import nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
   };
-in {
+in
+{
   imports = [
     ./roles/virtualization/multiarch.nix
     "${nixpkgs-wazuh-agent}/nixos/modules/services/security/wazuh/wazuh.nix"
@@ -45,9 +55,9 @@ in {
   environment.systemPackages = with stable-pkgs; [
     gptfdisk
     (pkgs.writeShellScriptBin "nixos-switch" ''
-    [[ -d /home/heywoodlh/opt/nixos-configs ]] || ${pkgs.git}/bin/git clone https://github.com/heywoodlh/nixos-configs /home/heywoodlh/opt/nixos-configs
-    sudo chown -R heywoodlh /home/heywoodlh/opt/nixos-configs
-    sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /home/heywoodlh/opt/nixos-configs#$(hostname) $@
+      [[ -d /home/heywoodlh/opt/nixos-configs ]] || ${pkgs.git}/bin/git clone https://github.com/heywoodlh/nixos-configs /home/heywoodlh/opt/nixos-configs
+      sudo chown -R heywoodlh /home/heywoodlh/opt/nixos-configs
+      sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /home/heywoodlh/opt/nixos-configs#$(hostname) $@
     '')
     mosh
   ];
@@ -66,15 +76,17 @@ in {
     extraSpecialArgs = {
       inherit nur;
     };
-    users.heywoodlh = { ... }: {
-      home.activation.docker-rootless-context = ''
-        if ! ${pkgs.docker-client}/bin/docker context ls | grep -iq rootless
-        then
-          ${pkgs.docker-client}/bin/docker context create rootless --docker "host=unix:///run/user/1000/docker.sock" &> /dev/null || true
-          ${pkgs.docker-client}/bin/docker context use rootless
-        fi
-      '';
-    };
+    users.heywoodlh =
+      { ... }:
+      {
+        home.activation.docker-rootless-context = ''
+          if ! ${pkgs.docker-client}/bin/docker context ls | grep -iq rootless
+          then
+            ${pkgs.docker-client}/bin/docker context create rootless --docker "host=unix:///run/user/1000/docker.sock" &> /dev/null || true
+            ${pkgs.docker-client}/bin/docker context use rootless
+          fi
+        '';
+      };
   };
 
   # Wazuh configuration

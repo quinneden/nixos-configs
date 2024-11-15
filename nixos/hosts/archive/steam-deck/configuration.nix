@@ -7,7 +7,6 @@
     ../../desktop.nix
   ];
 
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -42,7 +41,10 @@
     allowedUDPPorts = [ 51820 ];
     # For Mosh
     allowedUDPPortRanges = [
-      { from = 60000; to = 61000; }
+      {
+        from = 60000;
+        to = 61000;
+      }
     ];
   };
 
@@ -62,7 +64,10 @@
       device = "/dev/disk/by-uuid/37c0ab36-4ac0-4912-a589-a4f55965a084";
       fsType = "ext4";
       # It's okay if it's missing, automounted on access
-      options = [ "nofail" "x-systemd.automount" ];
+      options = [
+        "nofail"
+        "x-systemd.automount"
+      ];
     };
   };
 
@@ -94,4 +99,3 @@
   };
   system.stateVersion = "22.11";
 }
-

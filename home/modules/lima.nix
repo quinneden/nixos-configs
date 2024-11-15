@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -9,14 +14,15 @@ let
 
   limaArgs = if pkgs.stdenv.isDarwin then "--vm-type=vz" else "";
   startLima = pkgs.writeShellScriptBin "start-lima.sh" ''
-      if [[ -e ~/.lima/docker ]]
-      then
-        ${pkgs.lima}/bin/limactl start docker --mount-writable=true --tty=false
-      else
-        ${pkgs.lima}/bin/limactl start --mount-writable=true --tty=false --name=docker template://docker-rootful
-      fi
+    if [[ -e ~/.lima/docker ]]
+    then
+      ${pkgs.lima}/bin/limactl start docker --mount-writable=true --tty=false
+    else
+      ${pkgs.lima}/bin/limactl start --mount-writable=true --tty=false --name=docker template://docker-rootful
+    fi
   '';
-in {
+in
+{
   options = {
     heywoodlh.home.lima = {
       enable = mkOption {

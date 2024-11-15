@@ -1,9 +1,15 @@
-{ config, pkgs, myFlakes, ... }:
+{
+  config,
+  pkgs,
+  myFlakes,
+  ...
+}:
 
 let
   system = pkgs.system;
   homeDir = config.home.homeDirectory;
-in {
+in
+{
   home.file.".local/share/applications/spotify.desktop" = {
     enable = system == "aarch64-linux";
     text = ''

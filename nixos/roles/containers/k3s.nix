@@ -1,9 +1,15 @@
-{ config, pkgs, nixpkgs-stable, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs-stable,
+  ...
+}:
 
 let
   system = pkgs.system;
   stable-pkgs = nixpkgs-stable.legacyPackages.${system};
-in {
+in
+{
   networking.firewall.allowedTCPPorts = [ 6443 ];
   networking.firewall.trustedInterfaces = [ "tailscale0" ]; # for clustering
   services.k3s = {

@@ -1,9 +1,15 @@
-{ config, pkgs, nixpkgs-stable, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs-stable,
+  ...
+}:
 
 let
   system = pkgs.system;
   stable-pkgs = nixpkgs-stable.legacyPackages.${system};
-in {
+in
+{
   services.syslog-ng = {
     enable = true;
     package = stable-pkgs.syslogng;

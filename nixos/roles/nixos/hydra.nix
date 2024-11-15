@@ -9,8 +9,11 @@
     enable = true;
     hydraURL = "http://0.0.0.0:3000";
     notificationSender = "hydra@heywoodlh.io";
-    buildMachinesFiles = [];
+    buildMachinesFiles = [ ];
     useSubstitutes = true;
   };
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }

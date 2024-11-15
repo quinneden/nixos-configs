@@ -1,8 +1,15 @@
-{ config, pkgs, spicetify, hyprland, ... }:
+{
+  config,
+  pkgs,
+  spicetify,
+  hyprland,
+  ...
+}:
 
 let
   hostname = "nixos-macbook";
-in {
+in
+{
   imports = [
     /etc/nixos/hardware-configuration.nix
     ../../roles/nixos/asahi.nix

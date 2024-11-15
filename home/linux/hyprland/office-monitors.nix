@@ -1,4 +1,9 @@
-{ config, pkgs, hyprland, ... }:
+{
+  config,
+  pkgs,
+  hyprland,
+  ...
+}:
 
 {
   wayland.windowManager.hyprland.extraConfig = ''

@@ -1,13 +1,20 @@
 # Config specific to Dell XPS 13
-{ config, pkgs, lib, spicetify, nixos-x13s, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  spicetify,
+  nixos-x13s,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      inputs.nixos-x13s.nixosModules.default
-      /etc/nixos/hardware-configuration.nix
-      ../desktop=.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    nixos-x13s.nixosModules.default
+    /etc/nixos/hardware-configuration.nix
+    ../desktop.nix
+  ];
 
   nixos-x13s = {
     enable = true;

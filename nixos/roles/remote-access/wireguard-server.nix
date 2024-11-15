@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # enable NAT
@@ -21,11 +26,13 @@
       '';
       privateKeyFile = "/root/wireguard-keys/private";
       peers = [
-        { # Paul Macbook
+        {
+          # Paul Macbook
           publicKey = "XOelNu3deGab7HSepPfjAUxYkbauxwBPTMHbBsVTmB0=";
           allowedIPs = [ "10.100.0.2/32" ];
         }
-        { # Paul Mac Studio
+        {
+          # Paul Mac Studio
           publicKey = "WkhUOnfoHkFBFbSJoKVc99cVm3+pTrI5/PQzMAb4nWM=";
           allowedIPs = [ "10.100.0.3/32" ];
         }

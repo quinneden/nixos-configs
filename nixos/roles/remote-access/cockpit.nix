@@ -1,4 +1,9 @@
-{ config, pkgs, nur, ... }:
+{
+  config,
+  pkgs,
+  nur,
+  ...
+}:
 
 {
   # Enable cockpit

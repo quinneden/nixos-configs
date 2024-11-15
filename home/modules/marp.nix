@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -40,7 +45,8 @@ let
   marpWrapper = pkgs.writeShellScriptBin "marp" ''
     ${pkgs.marp-cli}/bin/marp --theme="${marpNord}/build/nord-theme.css" $@
   '';
-in {
+in
+{
   options = {
     heywoodlh.home.marp = {
       enable = mkOption {

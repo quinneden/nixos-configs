@@ -2,7 +2,8 @@
 
 let
   system = pkgs.system;
-in {
+in
+{
   imports = [
     ./desktop.nix
   ];

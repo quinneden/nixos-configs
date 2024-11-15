@@ -1,4 +1,12 @@
-{ config, lib, pkgs, nixpkgs-stable, snowflake, dark-wallpaper, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nixpkgs-stable,
+  snowflake,
+  dark-wallpaper,
+  ...
+}:
 
 with lib;
 
@@ -44,7 +52,8 @@ let
         ${pkgs.libnotify}/bin/notify-send "Enabled caffeine"
     fi
   '';
-in {
+in
+{
   options = {
     heywoodlh.home.sway = {
       enable = mkOption {
@@ -134,10 +143,12 @@ in {
 
     wayland.windowManager.sway = {
       enable = true;
-      config = {};
-      config.bars = [{
-        "command" = "${pkgs.waybar}/bin/waybar";
-      }];
+      config = { };
+      config.bars = [
+        {
+          "command" = "${pkgs.waybar}/bin/waybar";
+        }
+      ];
       extraConfig = ''
         exec ${pkgs.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1
 
@@ -268,29 +279,44 @@ in {
 
     programs.waybar = {
       enable = true;
-      settings = [{
-        layer = "top";
-        position = "top";
-        modules-left = [ "sway/workspaces" ];
-        modules-center = [ "sway/window" ];
-        modules-right = [ "pulseaudio" "cpu" "memory" "temperature" "clock" "tray" ];
-        clock.format = "{:%Y-%m-%d %H:%M}";
-        "tray" = { spacing = 8; };
-        "cpu" = { format = "cpu {usage}"; };
-        "memory" = { format = "mem {}"; };
-        "temperature" = {
-          hwmon-path = "/sys/class/hwmon/hwmon1/temp2_input";
-          format = "tmp {temperatureC}C";
-        };
-        "pulseaudio" = {
-          format = "vol {volume} {format_source}";
-          format-bluetooth = "volb {volume} {format_source}";
-          format-bluetooth-muted = "volb {format_source}";
-          format-muted = "vol {format_source}";
-          format-source = "mic {volume}";
-          format-source-muted = "mic";
-        };
-      }];
+      settings = [
+        {
+          layer = "top";
+          position = "top";
+          modules-left = [ "sway/workspaces" ];
+          modules-center = [ "sway/window" ];
+          modules-right = [
+            "pulseaudio"
+            "cpu"
+            "memory"
+            "temperature"
+            "clock"
+            "tray"
+          ];
+          clock.format = "{:%Y-%m-%d %H:%M}";
+          "tray" = {
+            spacing = 8;
+          };
+          "cpu" = {
+            format = "cpu {usage}";
+          };
+          "memory" = {
+            format = "mem {}";
+          };
+          "temperature" = {
+            hwmon-path = "/sys/class/hwmon/hwmon1/temp2_input";
+            format = "tmp {temperatureC}C";
+          };
+          "pulseaudio" = {
+            format = "vol {volume} {format_source}";
+            format-bluetooth = "volb {volume} {format_source}";
+            format-bluetooth-muted = "volb {format_source}";
+            format-muted = "vol {format_source}";
+            format-source = "mic {volume}";
+            format-source-muted = "mic";
+          };
+        }
+      ];
       style = ''
         /*
         *   Nord theme

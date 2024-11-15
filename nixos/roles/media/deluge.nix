@@ -31,7 +31,7 @@
       tor-socks-proxy = {
         image = "docker.io/peterdavehello/tor-socks-proxy:latest";
         autoStart = true;
-        ports = ["9150:9150"];
+        ports = [ "9150:9150" ];
       };
     };
   };

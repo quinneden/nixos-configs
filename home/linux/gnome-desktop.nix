@@ -1,4 +1,14 @@
-{ config, pkgs, nixpkgs-lts, lib, home-manager, myFlakes, light-wallpaper, dark-wallpaper, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs-lts,
+  lib,
+  home-manager,
+  myFlakes,
+  light-wallpaper,
+  dark-wallpaper,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -7,13 +17,23 @@ let
   myFish = myFlakes.packages.${system}.fish;
   myWezterm = myFlakes.packages.${system}.wezterm;
   gnome-pkgs = nixpkgs-lts.legacyPackages.${system};
-in {
+in
+{
   home.packages = with gnome-pkgs; [
     # Fallback to old name if undefined (i.e. on Ubuntu LTS)
-    (if (builtins.hasAttr "dconf-editor" gnome-pkgs) then gnome-pkgs.dconf-editor else gnome.dconf-editor)
+    (
+      if (builtins.hasAttr "dconf-editor" gnome-pkgs) then gnome-pkgs.dconf-editor else gnome.dconf-editor
+    )
     (if (builtins.hasAttr "gnome-boxes" gnome-pkgs) then gnome-pkgs.gnome-boxes else gnome.gnome-boxes)
-    (if (builtins.hasAttr "gnome-terminal" gnome-pkgs) then gnome-pkgs.gnome-terminal else gnome.gnome-terminal)
-    (if (builtins.hasAttr "gnome-tweaks" gnome-pkgs) then gnome-pkgs.gnome-tweaks else gnome.gnome-tweaks)
+    (
+      if (builtins.hasAttr "gnome-terminal" gnome-pkgs) then
+        gnome-pkgs.gnome-terminal
+      else
+        gnome.gnome-terminal
+    )
+    (
+      if (builtins.hasAttr "gnome-tweaks" gnome-pkgs) then gnome-pkgs.gnome-tweaks else gnome.gnome-tweaks
+    )
     gnomeExtensions.caffeine
     gnomeExtensions.gnome-bedtime
     gnomeExtensions.gsconnect

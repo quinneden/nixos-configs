@@ -1,137 +1,118 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, autoconf
-, automake
-, cmake
-, curl
-, libgcc
-, libtool
-, openssl
-, perl
-, policycoreutils
-, python312
-, zstd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  autoconf,
+  automake,
+  cmake,
+  curl,
+  libgcc,
+  libtool,
+  openssl,
+  perl,
+  policycoreutils,
+  python312,
+  zstd,
 }:
 let
   dependencyVersion = "24";
-  fetcher =
-    ({ name, sha256 }: fetchurl {
+  fetcher = (
+    { name, sha256 }:
+    fetchurl {
       url = "https://packages.wazuh.com/deps/${dependencyVersion}/libraries/sources/${name}.tar.gz";
       inherit sha256;
-    });
+    }
+  );
   dependencies = [
-    (fetcher
-      {
-        name = "cJSON";
-        sha256 = "678d796318da57d5f38075e74bbb3b77375dc3f8bb49da341ad1b43c417e8cc1";
-      })
-    (fetcher
-      {
-        name = "curl";
-        sha256 = "sha256-ULsVkySx7DjKdrM4ujcJ8MDahnhoChKp0wXx2Pcmsl0=";
-      })
-    (fetcher
-      {
-        name = "libdb";
-        sha256 = "sha256-fpxE6Mf9sYb/UhqNCFsb+mNNNC3Md37Oofv5qYq13F4=";
-      })
-    (fetcher
-      {
-        name = "libffi";
-        sha256 = "sha256-DpcfZLrMIglOifA0u6B1tA7MLCwpAO7NeuhYFf1sn2k=";
-      })
-    (fetcher
-      {
-        name = "libyaml";
-        sha256 = "sha256-NdqtYIs3LVzgmfc4wPIb/MA9aSDZL0SDhsWE5mTxN2o=";
-      })
-    (fetcher
-      {
-        name = "openssl";
-        sha256 = "sha256-konM9rgnYlaaGDrXGnRYcu/1HxCJx31YsMTvD3YeAog=";
-      })
-    (fetcher
-      {
-        name = "procps";
-        sha256 = "sha256-Ih85XinRvb5LrMnbOWAu7guuaFqTVDe+DX/rQuMZLQc=";
-      })
-    (fetcher
-      {
-        name = "sqlite";
-        sha256 = "sha256-5oUhY32eTmARVwfNfzUnWpLObQ/B/wTiLXu/DDk/j/E=";
-      })
-    (fetcher
-      {
-        name = "zlib";
-        sha256 = "sha256-2iKcKsAcVy1rAAhfu7sUE4LIGO0pKZCTFTUl+EsCew0=";
-      })
-    (fetcher
-      {
-        name = "audit-userspace";
-        sha256 = "sha256-6Coy5e35OwVRYOFLyX9B3q05KHklhR3ICnY44tTTBDQ=";
-      })
-    (fetcher
-      {
-        name = "msgpack";
-        sha256 = "sha256-BtY7zzKJbNCvVIDEARNLGtHBZv2E6+W0hueSEB7oVOI=";
-      })
-    (fetcher
-      {
-        name = "bzip2";
-        sha256 = "sha256-J2iO4DFqZLOeURssIkBwytl8OUpfcR+dBV/BgJ2JW80=";
-      })
-    (fetcher
-      {
-        name = "nlohmann";
-        sha256 = "sha256-zvsHk209W/3T78Xpu408gH1oEnO9rC6Ds9Z67y0RWMQ=";
-      })
-    (fetcher
-      {
-        name = "googletest";
-        sha256 = "sha256-jB6KCn8iHCEl6Z5qy3CdorpHJHa00FfFjeUEvr841Bc=";
-      })
-    (fetcher
-      {
-        name = "libpcre2";
-        sha256 = "sha256-0Lr8NXn6CvCjmVFYbt+jSeH0voPSi+2Gq+Cj/Es0/Po=";
-      })
-    (fetcher
-      {
-        name = "libplist";
-        sha256 = "sha256-iCeNS9/BvWo6GlWk89kzaD0nMroJz3p0n+jsjuxAbjw=";
-      })
-    (fetcher
-      {
-        name = "pacman";
-        sha256 = "sha256-9n3Tiir7NA19YDUNSbdamDp8TgGtdgIFaSDv6EnVsUM=";
-      })
-    (fetcher
-      {
-        name = "libarchive";
-        sha256 = "sha256-+GPzgurZ9hq8Vg/w6tC+OqnpW2+MYnVuHwNPTCOGunk=";
-      })
-    (fetcher
-      {
-        name = "popt";
-        sha256 = "sha256-1ogKBmIsoy3EqjmtXc977y+qgb2TGvvmS6Q0rY/uHao=";
-      })
-    (fetcher
-      {
-        name = "rpm";
-        sha256 = "sha256-TLxfyjwT3y3RUBLGi81SMH0omhvn6TxkjZ4P44ezFnA=";
-      })
-    (fetcher
-      {
-        name = "cpython";
-        sha256 = "sha256-Ct2yYX/g3PnnVvt9gOb1Uffqb/DCLIfcP8rTBva6yrA=";
-      })
-    (fetcher
-      {
-        name = "jemalloc";
-        sha256 = "sha256-KyLoWzUsffVQukCKQiUeUejf+myRqi4ftIBKsxf/vKA=";
-      })
+    (fetcher {
+      name = "cJSON";
+      sha256 = "678d796318da57d5f38075e74bbb3b77375dc3f8bb49da341ad1b43c417e8cc1";
+    })
+    (fetcher {
+      name = "curl";
+      sha256 = "sha256-ULsVkySx7DjKdrM4ujcJ8MDahnhoChKp0wXx2Pcmsl0=";
+    })
+    (fetcher {
+      name = "libdb";
+      sha256 = "sha256-fpxE6Mf9sYb/UhqNCFsb+mNNNC3Md37Oofv5qYq13F4=";
+    })
+    (fetcher {
+      name = "libffi";
+      sha256 = "sha256-DpcfZLrMIglOifA0u6B1tA7MLCwpAO7NeuhYFf1sn2k=";
+    })
+    (fetcher {
+      name = "libyaml";
+      sha256 = "sha256-NdqtYIs3LVzgmfc4wPIb/MA9aSDZL0SDhsWE5mTxN2o=";
+    })
+    (fetcher {
+      name = "openssl";
+      sha256 = "sha256-konM9rgnYlaaGDrXGnRYcu/1HxCJx31YsMTvD3YeAog=";
+    })
+    (fetcher {
+      name = "procps";
+      sha256 = "sha256-Ih85XinRvb5LrMnbOWAu7guuaFqTVDe+DX/rQuMZLQc=";
+    })
+    (fetcher {
+      name = "sqlite";
+      sha256 = "sha256-5oUhY32eTmARVwfNfzUnWpLObQ/B/wTiLXu/DDk/j/E=";
+    })
+    (fetcher {
+      name = "zlib";
+      sha256 = "sha256-2iKcKsAcVy1rAAhfu7sUE4LIGO0pKZCTFTUl+EsCew0=";
+    })
+    (fetcher {
+      name = "audit-userspace";
+      sha256 = "sha256-6Coy5e35OwVRYOFLyX9B3q05KHklhR3ICnY44tTTBDQ=";
+    })
+    (fetcher {
+      name = "msgpack";
+      sha256 = "sha256-BtY7zzKJbNCvVIDEARNLGtHBZv2E6+W0hueSEB7oVOI=";
+    })
+    (fetcher {
+      name = "bzip2";
+      sha256 = "sha256-J2iO4DFqZLOeURssIkBwytl8OUpfcR+dBV/BgJ2JW80=";
+    })
+    (fetcher {
+      name = "nlohmann";
+      sha256 = "sha256-zvsHk209W/3T78Xpu408gH1oEnO9rC6Ds9Z67y0RWMQ=";
+    })
+    (fetcher {
+      name = "googletest";
+      sha256 = "sha256-jB6KCn8iHCEl6Z5qy3CdorpHJHa00FfFjeUEvr841Bc=";
+    })
+    (fetcher {
+      name = "libpcre2";
+      sha256 = "sha256-0Lr8NXn6CvCjmVFYbt+jSeH0voPSi+2Gq+Cj/Es0/Po=";
+    })
+    (fetcher {
+      name = "libplist";
+      sha256 = "sha256-iCeNS9/BvWo6GlWk89kzaD0nMroJz3p0n+jsjuxAbjw=";
+    })
+    (fetcher {
+      name = "pacman";
+      sha256 = "sha256-9n3Tiir7NA19YDUNSbdamDp8TgGtdgIFaSDv6EnVsUM=";
+    })
+    (fetcher {
+      name = "libarchive";
+      sha256 = "sha256-+GPzgurZ9hq8Vg/w6tC+OqnpW2+MYnVuHwNPTCOGunk=";
+    })
+    (fetcher {
+      name = "popt";
+      sha256 = "sha256-1ogKBmIsoy3EqjmtXc977y+qgb2TGvvmS6Q0rY/uHao=";
+    })
+    (fetcher {
+      name = "rpm";
+      sha256 = "sha256-TLxfyjwT3y3RUBLGi81SMH0omhvn6TxkjZ4P44ezFnA=";
+    })
+    (fetcher {
+      name = "cpython";
+      sha256 = "sha256-Ct2yYX/g3PnnVvt9gOb1Uffqb/DCLIfcP8rTBva6yrA=";
+    })
+    (fetcher {
+      name = "jemalloc";
+      sha256 = "sha256-KyLoWzUsffVQukCKQiUeUejf+myRqi4ftIBKsxf/vKA=";
+    })
   ];
 in
 stdenv.mkDerivation rec {
@@ -177,7 +158,9 @@ stdenv.mkDerivation rec {
   unpackPhase = ''
     mkdir -p $workingDirectory/src/external
     cp --no-preserve=all -rf $src/* $workingDirectory
-    ${lib.strings.concatMapStringsSep "\n" (dep: "tar -xzf ${dep} -C $workingDirectory/src/external") dependencies}
+    ${lib.strings.concatMapStringsSep "\n" (
+      dep: "tar -xzf ${dep} -C $workingDirectory/src/external"
+    ) dependencies}
   '';
 
   patchPhase = ''
@@ -215,7 +198,11 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [ "-C ${workingDirectory}/src" "TARGET=agent" "INSTALLDIR=$out" ];
+  makeFlags = [
+    "-C ${workingDirectory}/src"
+    "TARGET=agent"
+    "INSTALLDIR=$out"
+  ];
 
   preBuild = ''
     make -C $workingDirectory/src deps
@@ -245,4 +232,3 @@ stdenv.mkDerivation rec {
     rm -rf $out/src # Remove src
   '';
 }
-

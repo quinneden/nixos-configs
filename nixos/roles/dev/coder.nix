@@ -28,7 +28,7 @@
         environmentFiles = [
           /opt/coder/environment
         ];
-        dependsOn = ["coder-db"];
+        dependsOn = [ "coder-db" ];
       };
       coder-db = {
         image = "docker.io/postgres:14.2";

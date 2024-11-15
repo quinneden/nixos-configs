@@ -19,17 +19,17 @@
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     appendHttpConfig = ''
-     # Minimize information leaked to other domains
-      add_header 'Referrer-Policy' 'origin-when-cross-origin';
+      # Minimize information leaked to other domains
+       add_header 'Referrer-Policy' 'origin-when-cross-origin';
 
-      # Disable embedding as a frame
-      add_header X-Frame-Options DENY;
+       # Disable embedding as a frame
+       add_header X-Frame-Options DENY;
 
-      # Prevent injection of code in other mime types (XSS Attacks)
-      add_header X-Content-Type-Options nosniff;
+       # Prevent injection of code in other mime types (XSS Attacks)
+       add_header X-Content-Type-Options nosniff;
 
-      # This might create errors
-      proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
+       # This might create errors
+       proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
     '';
     virtualHosts."nix-nvidia" = {
       listen = [

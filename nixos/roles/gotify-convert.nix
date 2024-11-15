@@ -15,9 +15,9 @@
           /opt/gotify-convert/gotify-convert.env
         ];
         environment = {
-          HTTP_PROXY="http://100.113.9.57:3128";
-          HTTPS_PROXY="http://100.113.9.57:3128";
-          NO_PROXY="localhost,nix-ext-net.tailscale,*.pushover.net,pushover.net";
+          HTTP_PROXY = "http://100.113.9.57:3128";
+          HTTPS_PROXY = "http://100.113.9.57:3128";
+          NO_PROXY = "localhost,nix-ext-net.tailscale,*.pushover.net,pushover.net";
         };
         extraOptions = [
           "--tty"

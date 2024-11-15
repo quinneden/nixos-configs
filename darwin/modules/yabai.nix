@@ -1,4 +1,11 @@
-{ config, lib, pkgs, myFlakes, choose-nixpkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  myFlakes,
+  choose-nixpkgs,
+  ...
+}:
 
 with lib;
 
@@ -41,7 +48,8 @@ let
   skhd-brew = pkgs.writeShellScriptBin "skhd" ''
     exec ${brew-path}/skhd $@
   '';
-in {
+in
+{
   options = {
     heywoodlh.darwin.yabai = {
       enable = mkOption {

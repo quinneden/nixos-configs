@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
-with pkgs.nur.repos.rycee.firefox-addons; [
+with pkgs.nur.repos.rycee.firefox-addons;
+[
   darkreader
   gnome-shell-integration
   kristofferhagen-nord-theme

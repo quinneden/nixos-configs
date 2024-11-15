@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -10,48 +15,56 @@ let
     hash = "sha256-0Ni0KWk8QlhfXIPXyRUo8566a4VYHbMcAD90g5QvpF0=";
   };
   icnsDir = ./icns;
-  renameIcns = name: pkgs.stdenv.mkDerivation {
-    name = "icns-renamed-${name}";
-    src = icnsDir;
-    phases = [ "unpackPhase" "installPhase" ];
+  renameIcns =
+    name:
+    pkgs.stdenv.mkDerivation {
+      name = "icns-renamed-${name}";
+      src = icnsDir;
+      phases = [
+        "unpackPhase"
+        "installPhase"
+      ];
 
-    unpackPhase = ''
-      mkdir -p $out
-      cp -r $src/* $out/
-    '';
+      unpackPhase = ''
+        mkdir -p $out
+        cp -r $src/* $out/
+      '';
 
-    installPhase = ''
-      for file in $out/*.icns; do
-        new_name=$(basename "$file" | sed "s/^white/${name}/")
-        mv "$file" "$out/$new_name"
-      done
-    '';
-  };
-
-  createApp = { name, command }: {
-    ".config/autostart/${name}.desktop" = {
-      enable = true;
-      text = ''
-        [Desktop Entry]
-        Name=${name}
-        GenericName=${name}
-        Comment=${name}
-        Exec=${command}
-        Terminal=false
-        Type=Application
-        Keywords=command;
-        Icon=${snowflake}
-        Categories=Utility;
+      installPhase = ''
+        for file in $out/*.icns; do
+          new_name=$(basename "$file" | sed "s/^white/${name}/")
+          mv "$file" "$out/$new_name"
+        done
       '';
     };
-  };
 
-  applicationsFiles = foldl' (acc: app: acc // (createApp app)) {} cfg;
+  createApp =
+    { name, command }:
+    {
+      ".config/autostart/${name}.desktop" = {
+        enable = true;
+        text = ''
+          [Desktop Entry]
+          Name=${name}
+          GenericName=${name}
+          Comment=${name}
+          Exec=${command}
+          Terminal=false
+          Type=Application
+          Keywords=command;
+          Icon=${snowflake}
+          Categories=Utility;
+        '';
+      };
+    };
 
-in {
+  applicationsFiles = foldl' (acc: app: acc // (createApp app)) { } cfg;
+
+in
+{
   options = {
     heywoodlh.home.autostart = mkOption {
-      default = [];
+      default = [ ];
       description = ''
         List of custom applications to autostart.
       '';

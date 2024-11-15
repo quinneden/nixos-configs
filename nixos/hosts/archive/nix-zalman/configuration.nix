@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-  [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../desktop.nix
     ../../../roles/sshd.nix
@@ -45,7 +45,10 @@
       peers = [
         {
           publicKey = "iXvsTj8+YvzRwpbTF45/oXC1P8W9f9ns3XMth7ACIAU=";
-          allowedIPs = [ "10.50.50.0/24" "10.51.51.0/24" ];
+          allowedIPs = [
+            "10.50.50.0/24"
+            "10.51.51.0/24"
+          ];
           endpoint = "10.0.50.50:51821";
           persistentKeepalive = 25;
         }
@@ -92,14 +95,20 @@
   fileSystems."/home/heywoodlh/mnt/wd-black" = {
     device = "/dev/disk/by-uuid/18AB699E4AAEA95F";
     fsType = "ntfs3";
-    options = [ "rw" "uid=heywoodlh" ];
+    options = [
+      "rw"
+      "uid=heywoodlh"
+    ];
   };
 
   # Mount games-ssd
   fileSystems."/home/heywoodlh/mnt/games-ssd" = {
     device = "/dev/disk/by-uuid/29A41880637FC63C";
     fsType = "ntfs3";
-    options = [ "rw" "uid=heywoodlh" ];
+    options = [
+      "rw"
+      "uid=heywoodlh"
+    ];
   };
 
   system.stateVersion = "23.05";

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   script = ''
@@ -8,8 +13,9 @@ let
 
     ${pkgs.ansible}/bin/ansible-galaxy install -r /opt/ansible/requirements.yml
   '';
-  cronJobs = [
-  ];
+  cronJobs =
+    [
+    ];
   server-update = pkgs.writeShellScriptBin "server-update" ''
     #!/usr/bin/env bash
     /run/wrappers/bin/sudo ${pkgs.ansible}/bin/ansible --private-key /root/ansible-ssh -i /opt/ansible/inventory/tailscale.py tag_server -m ansible.builtin.command -a 'ansible-pull -c local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml'
@@ -25,8 +31,8 @@ in
   services.cron = {
     enable = true;
     systemCronJobs = [
-    "0 * * * * ${pkgs.git}/bin/git -C /opt/ansible pull origin master"
-    "0 4 * * Sun ${pkgs.ansible}/bin/ansible --private-key /root/ansible-ssh -i /opt/ansible/inventory/tailscale.py tag_server -m ansible.builtin.command -a 'ansible-pull -c local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml'"
+      "0 * * * * ${pkgs.git}/bin/git -C /opt/ansible pull origin master"
+      "0 4 * * Sun ${pkgs.ansible}/bin/ansible --private-key /root/ansible-ssh -i /opt/ansible/inventory/tailscale.py tag_server -m ansible.builtin.command -a 'ansible-pull -c local -U https://github.com/heywoodlh/ansible playbooks/servers/server.yml'"
     ];
   };
 

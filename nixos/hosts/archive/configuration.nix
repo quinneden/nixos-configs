@@ -1,8 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-  [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
     ../../server.nix
     ../../roles/containers/k3s.nix

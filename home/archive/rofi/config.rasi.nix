@@ -1,24 +1,24 @@
 ''
-configuration {
-    font: "JetBrainsMono Nerd Font Mono 16";
-    line-margin: 10;
+  configuration {
+      font: "JetBrainsMono Nerd Font Mono 16";
+      line-margin: 10;
 
-    display-ssh:    "";
-    display-run:    "";
-    display-drun:   "";
-    display-window: "";
-    display-combi:  "";
-    show-icons:     true;
-}
+      display-ssh:    "";
+      display-run:    "";
+      display-drun:   "";
+      display-window: "";
+      display-combi:  "";
+      show-icons:     true;
+  }
 
-@theme "~/.config/rofi/nord.rasi"
+  @theme "~/.config/rofi/nord.rasi"
 
-listview {
-	lines: 6;
-	columns: 2;
-}
+  listview {
+  	lines: 6;
+  	columns: 2;
+  }
 
-window {
-	width: 30%;
-}
+  window {
+  	width: 30%;
+  }
 ''

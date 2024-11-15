@@ -2,7 +2,7 @@
 
 {
   "org/gnome/desktop/input-sources" = {
-    xkb-options = ["caps:super"];
+    xkb-options = [ "caps:super" ];
   };
   "apps/guake/general" = {
     abbreviate-tab-names = false;
@@ -62,7 +62,7 @@
   };
   "org/gnome/shell" = {
     disable-user-extensions = false;
-    disabled-extensions = ["disabled"];
+    disabled-extensions = [ "disabled" ];
     enabled-extensions = [
       "native-window-placement@gnome-shell-extensions.gcampax.github.com"
       "pop-shell@system76.com"
@@ -70,7 +70,10 @@
       "hidetopbar@mathieu.bidon.ca"
       "gsconnect@andyholmes.github.io"
     ];
-    favorite-apps = ["firefox.desktop" "alacritty.desktop"];
+    favorite-apps = [
+      "firefox.desktop"
+      "alacritty.desktop"
+    ];
     had-bluetooth-devices-setup = true;
     remember-mount-password = false;
     welcome-dialog-last-shown-version = "42.4";
@@ -93,32 +96,32 @@
     toolkit-accessibility = true;
   };
   "org/gnome/desktop/wm/keybindings" = {
-    activate-window-menu = ["disabled"];
-    toggle-message-tray = ["disabled"];
+    activate-window-menu = [ "disabled" ];
+    toggle-message-tray = [ "disabled" ];
     close = "['<Super>q', '<Alt>F4']";
-    maximize = ["disabled"];
+    maximize = [ "disabled" ];
     minimize = "['<Super>comma']";
-    move-to-monitor-down = ["disabled"];
-    move-to-monitor-left = ["disabled"];
-    move-to-monitor-right = ["disabled"];
-    move-to-monitor-up = ["disabled"];
-    move-to-workspace-down = ["disabled"];
-    move-to-workspace-up = ["disabled"];
-    switch-to-workspace-left = ["<Super>bracketleft"];
-    switch-to-workspace-right = ["<Super>bracketright"];
-    switch-input-source = ["disabled"];
-    switch-input-source-backward = ["disabled"];
-    toggle-maximized = ["<Super>Up"];
-    unmaximize = ["disabled"];
+    move-to-monitor-down = [ "disabled" ];
+    move-to-monitor-left = [ "disabled" ];
+    move-to-monitor-right = [ "disabled" ];
+    move-to-monitor-up = [ "disabled" ];
+    move-to-workspace-down = [ "disabled" ];
+    move-to-workspace-up = [ "disabled" ];
+    switch-to-workspace-left = [ "<Super>bracketleft" ];
+    switch-to-workspace-right = [ "<Super>bracketright" ];
+    switch-input-source = [ "disabled" ];
+    switch-input-source-backward = [ "disabled" ];
+    toggle-maximized = [ "<Super>Up" ];
+    unmaximize = [ "disabled" ];
   };
   "org/gnome/desktop/wm/preferences" = {
     button-layout = "close,minimize,maximize:appmenu";
     num-workspaces = 10;
   };
   "org/gnome/shell/extensions/pop-shell" = {
-    focus-right = ["disabled"];
+    focus-right = [ "disabled" ];
     tile-by-default = true;
-    tile-enter = ["disabled"];
+    tile-enter = [ "disabled" ];
   };
   "org/gnome/desktop/notifications" = {
     show-in-lock-screen = false;

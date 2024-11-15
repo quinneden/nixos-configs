@@ -1,9 +1,15 @@
-{ config, pkgs, cosmic-session, ...}:
+{
+  config,
+  pkgs,
+  cosmic-session,
+  ...
+}:
 
 let
   system = pkgs.system;
   cosmic = cosmic-session.packages.${system}.default;
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     cosmic-applibrary
     cosmic-applets

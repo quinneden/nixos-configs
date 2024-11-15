@@ -3,7 +3,8 @@
 let
   fqdn = "matrix.heywoodlh.io";
   clientConfig."m.homeserver".base_url = "https://matrix.heywoodlh.io";
-in {
+in
+{
   networking.firewall.interfaces.tailscale0 = {
     allowedTCPPorts = [
       80
@@ -43,10 +44,15 @@ in {
           type = "http";
           tls = false;
           x_forwarded = true;
-          resources = [{
-            names = [ "client" "federation" ];
-            compress = true;
-          }];
+          resources = [
+            {
+              names = [
+                "client"
+                "federation"
+              ];
+              compress = true;
+            }
+          ];
         }
       ];
     };
@@ -121,10 +127,10 @@ in {
   # Restart signald daily
   systemd.timers."restart-signald" = {
     wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "daily";
-        Unit = "restart-signald.service";
-      };
+    timerConfig = {
+      OnCalendar = "daily";
+      Unit = "restart-signald.service";
+    };
   };
   systemd.services."restart-signald" = {
     script = ''

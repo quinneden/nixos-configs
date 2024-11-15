@@ -1,8 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-  [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../server.nix
     ../../roles/virtualization/libvirt.nix
@@ -46,7 +51,7 @@
   };
 
   # Tell Xorg to use the nvidia driver (also valid for Wayland)
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -130,7 +135,7 @@
 
   # Nvidia container settings
   virtualisation.docker.enable = true;
-  hardware.nvidia-container-toolkit.enable =  true;
+  hardware.nvidia-container-toolkit.enable = true;
   environment.systemPackages = with pkgs; [
     cloudflared
     docker

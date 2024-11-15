@@ -1,4 +1,11 @@
-{ config, pkgs, lib, jovian-nixos, home-manager, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  jovian-nixos,
+  home-manager,
+  ...
+}:
 
 {
   imports = [
@@ -97,17 +104,17 @@
         enabled-extensions = [
           "dash-to-dock@micxgx.gmail.com"
         ];
-        favorite-apps = ["steam.desktop"];
+        favorite-apps = [ "steam.desktop" ];
       };
       # Dash to Dock settings for a better touch screen experience
       "org/gnome/shell/extensions/dash-to-dock" = {
-        background-opacity = 0.80000000000000004;
+        background-opacity = 0.8;
         custom-theme-shrink = true;
         dash-max-icon-size = 48;
         dock-fixed = true;
         dock-position = "LEFT";
         extend-height = true;
-        height-fraction = 0.60999999999999999;
+        height-fraction = 0.61;
         hot-keys = false;
         preferred-monitor = -2;
         preferred-monitor-by-connector = "eDP-1";

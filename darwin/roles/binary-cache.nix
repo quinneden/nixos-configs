@@ -1,4 +1,11 @@
-{ config, pkgs, lib, attic, darwin, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  attic,
+  darwin,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -35,7 +42,8 @@ let
   runCache = pkgs.writeShellScript "serve-cache" ''
     ${atticServer}/bin/atticd --listen 0.0.0.0:8080 &>>/tmp/binary-cache.log
   '';
-in {
+in
+{
   environment.systemPackages = [
     configureCache
     populateCache

@@ -38,7 +38,7 @@
           "/opt/fauxpilot/cache:/root/.cache/huggingface"
           "/etc/localtime:/etc/localtime:ro"
         ];
-        dependsOn = ["copilot-proxy"];
+        dependsOn = [ "copilot-proxy" ];
         extraOptions = [
           "--runtime=nvidia"
           "--network=fauxpilot"

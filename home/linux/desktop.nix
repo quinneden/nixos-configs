@@ -1,13 +1,21 @@
-{ config, pkgs, home-manager, myFlakes, snowflake, ... }:
+{
+  config,
+  pkgs,
+  home-manager,
+  myFlakes,
+  snowflake,
+  ...
+}:
 
 let
   system = pkgs.system;
   homeDir = config.home.homeDirectory;
   myWezterm = myFlakes.packages.${system}.wezterm;
   captive-portal = pkgs.writeShellScriptBin "captive-portal" ''
-   ${pkgs.xdg-utils}/bin/xdg-open "http://$(${pkgs.iproute2}/bin/ip --oneline route get 1.1.1.1 | ${pkgs.gawk}/bin/awk '{print $3}')"
+    ${pkgs.xdg-utils}/bin/xdg-open "http://$(${pkgs.iproute2}/bin/ip --oneline route get 1.1.1.1 | ${pkgs.gawk}/bin/awk '{print $3}')"
   '';
-in {
+in
+{
   # Flatpak support
   services.flatpak = {
     enableModule = true;
@@ -51,7 +59,7 @@ in {
     pkgs.inotify-tools
     pkgs.jetbrains-mono
     pkgs.keyutils
-    pkgs.libnotify #(notify-send)
+    pkgs.libnotify # (notify-send)
     pkgs.nixos-install-tools
     pkgs.nordic
     pkgs.rofi

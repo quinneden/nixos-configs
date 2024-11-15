@@ -2,27 +2,28 @@
 
 let
   scrutiny_config = pkgs.writeText "scrutiny.yaml" ''
-  version: 1
-  web:
-    listen:
-      port: 8080
-      host: 0.0.0.0
-    database:
-      location: /opt/scrutiny/config/scrutiny.db
-    src:
-      frontend:
-        path: /opt/scrutiny/web
-    influxdb:
-      host: 0.0.0.0
-      port: 8086
-      retention_policy: true
-  log:
-    level: INFO
-  notify:
-    urls:
-      - "ntfy://ntfy.heywoodlh.io/smartd-notifications"
+    version: 1
+    web:
+      listen:
+        port: 8080
+        host: 0.0.0.0
+      database:
+        location: /opt/scrutiny/config/scrutiny.db
+      src:
+        frontend:
+          path: /opt/scrutiny/web
+      influxdb:
+        host: 0.0.0.0
+        port: 8086
+        retention_policy: true
+    log:
+      level: INFO
+    notify:
+      urls:
+        - "ntfy://ntfy.heywoodlh.io/smartd-notifications"
   '';
-in {
+in
+{
   networking.firewall.allowedTCPPorts = [
     3050
     3051

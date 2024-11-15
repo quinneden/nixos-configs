@@ -12,7 +12,8 @@ let
     image_tag = "2023_08";
     second_image_tag = "aug_30_hotfix";
   };
-in {
+in
+{
   system.activationScripts.mkTedditNet = ''
     ${pkgs.docker}/bin/docker network create teddit  &2>/dev/null || true
   '';
@@ -27,7 +28,7 @@ in {
       teddit = {
         image = "docker.io/teddit/teddit:${teddit.image_tag}";
         autoStart = true;
-        ports = ["${teddit.port}:8080"];
+        ports = [ "${teddit.port}:8080" ];
         environment = {
           REDIS_HOST = "teddit-redis";
           DOMAIN = "${teddit.domain}";
@@ -52,7 +53,7 @@ in {
       cloudtube = {
         image = "docker.io/heywoodlh/cloudtube:${cloudtube.image_tag}";
         autoStart = true;
-        ports = ["${cloudtube.port}:10412"];
+        ports = [ "${cloudtube.port}:10412" ];
         environment = {
           INSTANCE_URI = "http://second:3000";
         };

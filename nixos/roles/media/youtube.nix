@@ -6,7 +6,8 @@ let
     nameserver 1.1.1.1
     nameserver 1.0.0.1
   '';
-in {
+in
+{
   networking.firewall.allowedTCPPorts = [
     6081
   ];

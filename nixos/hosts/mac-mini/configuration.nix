@@ -1,12 +1,19 @@
 # Config specific to Dell XPS 13
-{ config, pkgs, lib, spicetify, mullvad-browser-home-manager, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  spicetify,
+  mullvad-browser-home-manager,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-      ../../desktop.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    /etc/nixos/hardware-configuration.nix
+    ../../desktop.nix
+  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;

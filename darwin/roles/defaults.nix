@@ -1,8 +1,14 @@
-{ config, pkgs, myFlakes, ... }:
+{
+  config,
+  pkgs,
+  myFlakes,
+  ...
+}:
 
 let
   system = pkgs.system;
-in {
+in
+{
   #package config
   nixpkgs.config.allowUnfree = true;
   # nix configuration
@@ -43,7 +49,13 @@ in {
 
   # add nerd fonts
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hack" "DroidSansMono" "Iosevka" ]; })
+    (nerdfonts.override {
+      fonts = [
+        "Hack"
+        "DroidSansMono"
+        "Iosevka"
+      ];
+    })
   ];
 
   #system-defaults.nix
@@ -101,11 +113,11 @@ in {
       NSNavPanelExpandedStateForSaveMode = true;
       NSNavPanelExpandedStateForSaveMode2 = true;
       _HIHideMenuBar = true;
-      NSWindowResizeTime = 0.001;
+      NSWindowResizeTime = 1.0e-3;
       NSAutomaticWindowAnimationsEnabled = false;
       NSTableViewDefaultSizeMode = 1; # small icons in finder
       NSDocumentSaveNewDocumentsToCloud = false; # disable saving to iCloud by default
-      "com.apple.sound.beep.volume" = 0.000; # mute beep
+      "com.apple.sound.beep.volume" = 0.0; # mute beep
       AppleICUForce24HourTime = true; # use 24 hour time
     };
     CustomUserPreferences = {
@@ -122,7 +134,7 @@ in {
       };
     };
   };
-   # Add flake support
+  # Add flake support
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

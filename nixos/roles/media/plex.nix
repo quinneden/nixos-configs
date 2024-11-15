@@ -2,7 +2,8 @@
 
 let
   system = pkgs.system;
-in {
+in
+{
   networking.firewall.allowedTCPPorts = [
     8081
     8181
@@ -33,7 +34,7 @@ in {
     ];
   };
 
-  users.groups.media = {};
+  users.groups.media = { };
   users.users.media = {
     group = "media";
     isSystemUser = true;

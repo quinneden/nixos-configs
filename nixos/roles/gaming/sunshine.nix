@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 
 let
@@ -14,7 +19,9 @@ in
 
   config = mkIf config.services.sunshine.enable {
 
-    boot = { kernelModules = [ "uinput" ]; };
+    boot = {
+      kernelModules = [ "uinput" ];
+    };
     services = {
       udev.extraRules = ''
         KERNEL=="uinput", GROUP="input", MODE="0660" OPTIONS+="static_node=uinput"

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -46,7 +51,8 @@ let
     mkdir -p ~/share/docker/metasploit/
     ${pkgs.docker-client}/bin/docker run -it --rm --net=host -v $HOME/share/docker/metasploit/:/root/.msf4 -w /root/session -v "$PWD:/root/session" docker.io/heywoodlh/metasploit msfconsole $args
   '';
-in {
+in
+{
   options = {
     heywoodlh.home.dockerBins = {
       enable = mkOption {

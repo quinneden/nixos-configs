@@ -1,12 +1,23 @@
-{ config, pkgs, lib, home-manager,
-  nur, hyprland, nixpkgs-backports,
-  nixpkgs-stable, nixpkgs-lts,
-  myFlakes, flatpaks,
-  light-wallpaper, dark-wallpaper,
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  nur,
+  hyprland,
+  nixpkgs-backports,
+  nixpkgs-stable,
+  nixpkgs-lts,
+  myFlakes,
+  flatpaks,
+  light-wallpaper,
+  dark-wallpaper,
   snowflake,
   mullvad-browser-home-manager,
-  ts-warp-nixpkgs, qutebrowser,
-  ... }:
+  ts-warp-nixpkgs,
+  qutebrowser,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -14,7 +25,8 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-in {
+in
+{
   imports = [
     home-manager.nixosModules.home-manager
     ./base.nix
@@ -28,7 +40,10 @@ in {
   ];
 
   boot = {
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = [
+      "quiet"
+      "splash"
+    ];
     plymouth.enable = true;
     consoleLogLevel = 0;
     initrd.verbose = false;
@@ -98,8 +113,22 @@ in {
     package = pkgs.gnomeExtensions.gsconnect;
   };
   networking.firewall = {
-    interfaces.tailscale0.allowedTCPPortRanges = [ { from = 1714; to = 1764; } { from = 3131; to = 3131;} ];
-    interfaces.tailscale0.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    interfaces.tailscale0.allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+      {
+        from = 3131;
+        to = 3131;
+      }
+    ];
+    interfaces.tailscale0.allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
   };
 
   # Enable Tailscale
@@ -150,7 +179,9 @@ in {
     enable = true;
     settings = {
       # Necessary for Airpods
-      General = { ControllerMode = "dual"; } ;
+      General = {
+        ControllerMode = "dual";
+      };
     };
   };
 
@@ -196,13 +227,24 @@ in {
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hack" "DroidSansMono" "Iosevka" "JetBrainsMono" ]; })
+    (nerdfonts.override {
+      fonts = [
+        "Hack"
+        "DroidSansMono"
+        "Iosevka"
+        "JetBrainsMono"
+      ];
+    })
   ];
 
   users.users.heywoodlh = {
     isNormalUser = true;
     description = "Spencer Heywood";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "adbusers"
+    ];
     shell = "${pkgs.bash}/bin/bash";
     # users.users.<name>.icon not a NixOS option
     # made possible with ./roles/desktop/user-icon.nix
@@ -254,29 +296,31 @@ in {
       inherit qutebrowser;
     };
     backupFileExtension = ".bak";
-    users.heywoodlh = { ... }: {
-      imports = [
-        (mullvad-browser-home-manager + /modules/programs/mullvad-browser.nix)
-        ../home/linux.nix
-        ../home/desktop.nix # base desktop.nix
-        ../home/linux/desktop.nix # linux-specific desktop.nix
-        ../home/linux/gnome-desktop.nix
-        flatpaks.homeManagerModules.default
-        (import myFlakes.packages.${system}.gnome-dconf)
-        #hyprland.homeManagerModules.default
-        #../home/linux/hyprland.nix
-      ];
-      home.packages = [
-        myFlakes.packages.${system}.git
-      ];
-      home.file.".config/fish/machine.fish" = {
-        enable = true;
-        text = ''
-          # Always set 1password agent on NixOS desktops
-          test -e ~/.1password/agent.sock && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
-        '';
+    users.heywoodlh =
+      { ... }:
+      {
+        imports = [
+          (mullvad-browser-home-manager + /modules/programs/mullvad-browser.nix)
+          ../home/linux.nix
+          ../home/desktop.nix # base desktop.nix
+          ../home/linux/desktop.nix # linux-specific desktop.nix
+          ../home/linux/gnome-desktop.nix
+          flatpaks.homeManagerModules.default
+          (import myFlakes.packages.${system}.gnome-dconf)
+          #hyprland.homeManagerModules.default
+          #../home/linux/hyprland.nix
+        ];
+        home.packages = [
+          myFlakes.packages.${system}.git
+        ];
+        home.file.".config/fish/machine.fish" = {
+          enable = true;
+          text = ''
+            # Always set 1password agent on NixOS desktops
+            test -e ~/.1password/agent.sock && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+          '';
+        };
       };
-    };
   };
 
   programs.nix-index.enable = true;

@@ -1,4 +1,11 @@
-{ config, pkgs, attic, myFlakes, darwin, ... }:
+{
+  config,
+  pkgs,
+  attic,
+  myFlakes,
+  darwin,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -11,7 +18,8 @@ let
     #${pkgs.git}/bin/git -C ~/opt/nixos-configs pull origin master --rebase
     ${pkgs-darwin.darwin-rebuild}/bin/darwin-rebuild switch --flake ~/opt/nixos-configs#$(hostname)
   '';
-in {
+in
+{
   #nix packages
   environment.systemPackages = [
     linuxBuilderSsh

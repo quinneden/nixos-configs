@@ -50,7 +50,7 @@
       rustdesk-hbbr = {
         image = "docker.io/rustdesk/rustdesk-server:latest";
         autoStart = true;
-        dependsOn = ["rustdesk-hbbr"];
+        dependsOn = [ "rustdesk-hbbr" ];
         ports = [
           "21117:21117"
           "21119:21119"

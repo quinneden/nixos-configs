@@ -31,7 +31,7 @@
       http-proxy-pac = {
         image = "docker.io/httpd:latest";
         autoStart = true;
-        ports = ["1085:80"];
+        ports = [ "1085:80" ];
         volumes = [
           "/etc/proxy.pac:/usr/local/apache2/htdocs/proxy.pac"
         ];

@@ -1,4 +1,11 @@
-{ config, pkgs, nixpkgs-stable, ssh-keys, myFlakes, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs-stable,
+  ssh-keys,
+  myFlakes,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -7,13 +14,17 @@ let
     config.allowUnfree = true;
   };
   myZellij = myFlakes.packages.${system}.zellij;
-in {
+in
+{
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 ];
     # For Mosh
     allowedUDPPortRanges = [
-      { from = 60000; to = 61000; }
+      {
+        from = 60000;
+        to = 61000;
+      }
     ];
   };
 

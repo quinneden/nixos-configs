@@ -1,5 +1,14 @@
 # Config specific to Dell XPS 13
-{ config, pkgs, nixpkgs-stable, nixpkgs-pam-lid-fix, lib, spicetify, lanzaboote, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs-stable,
+  nixpkgs-pam-lid-fix,
+  lib,
+  spicetify,
+  lanzaboote,
+  ...
+}:
 
 let
   system = pkgs.system;
@@ -7,19 +16,20 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-in {
+in
+{
   disabledModules = [
     "security/pam.nix"
     "services/security/fprintd.nix"
   ];
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../laptop.nix
-      "${nixpkgs-pam-lid-fix}/nixos/modules/security/pam.nix"
-      "${nixpkgs-pam-lid-fix}/nixos/modules/services/security/fprintd.nix"
-      lanzaboote.nixosModules.lanzaboote
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../laptop.nix
+    "${nixpkgs-pam-lid-fix}/nixos/modules/security/pam.nix"
+    "${nixpkgs-pam-lid-fix}/nixos/modules/services/security/fprintd.nix"
+    lanzaboote.nixosModules.lanzaboote
+  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = false; # using lanzaboote

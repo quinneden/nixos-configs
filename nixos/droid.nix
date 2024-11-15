@@ -1,4 +1,11 @@
-{ config, pkgs, nix-on-droid, myFlakes, ssh-keys, ... }:
+{
+  config,
+  pkgs,
+  nix-on-droid,
+  myFlakes,
+  ssh-keys,
+  ...
+}:
 
 let
   sshdTmpDirectory = "${config.user.home}/sshd-tmp";

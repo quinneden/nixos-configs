@@ -7,7 +7,8 @@ let
     user = "media";
     group = "media";
   };
-in {
+in
+{
   networking.firewall.interfaces.tailscale0 = {
     allowedTCPPorts = [ webdav.port ];
   };

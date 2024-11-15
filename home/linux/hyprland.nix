@@ -1,9 +1,19 @@
-{ config, pkgs, lib, home-manager, hyprland, myFlakes, dark-wallpaper, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  hyprland,
+  myFlakes,
+  dark-wallpaper,
+  ...
+}:
 
 let
   system = pkgs.system;
   homeDir = config.home.homeDirectory;
-in {
+in
+{
   home.packages = with pkgs; [
     acpi
     bluetuith
@@ -147,8 +157,8 @@ in {
     enable = true;
     executable = true;
     text = ''
-    #!/usr/bin/env bash
-    ${pkgs.libnotify}/bin/notify-send $(${pkgs.acpi}/bin/acpi -b | grep -Eo [0-9]+%)
+      #!/usr/bin/env bash
+      ${pkgs.libnotify}/bin/notify-send $(${pkgs.acpi}/bin/acpi -b | grep -Eo [0-9]+%)
     '';
   };
 
@@ -306,7 +316,6 @@ in {
     '';
   };
 
-
   # 1Password script
   home.file."bin/1password-toggle.sh" = {
     enable = true;
@@ -373,7 +382,7 @@ in {
     ];
   };
   # start swayidle as part of hyprland, not sway
-  systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+  systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
 
   # Hyprland
   wayland.windowManager.hyprland = {

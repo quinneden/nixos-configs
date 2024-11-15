@@ -1,8 +1,14 @@
-{ config, pkgs, snowflake, ... }:
+{
+  config,
+  pkgs,
+  snowflake,
+  ...
+}:
 
 let
   homeDir = config.home.homeDirectory;
-in {
+in
+{
   home.file.".local/share/applications/gnome-terminal-fullscreen.desktop" = {
     enable = true;
     text = ''

@@ -1,10 +1,17 @@
-{ config, pkgs, home-manager, hyprland, ... }:
+{
+  config,
+  pkgs,
+  home-manager,
+  hyprland,
+  ...
+}:
 
 # Resources for laptops running Hyprland
 let
   homeDir = config.home.homeDirectory;
   laptop_display = "eDP-1";
-in {
+in
+{
   home.packages = with pkgs; [
     coreutils
     gnugrep

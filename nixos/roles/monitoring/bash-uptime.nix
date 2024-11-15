@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   uptime-yaml = pkgs.writeText "uptime.yaml" ''
@@ -38,10 +43,10 @@ in
 
   systemd.timers."bash-uptime" = {
     wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "*:0/5";
-        Unit = "bash-uptime.service";
-      };
+    timerConfig = {
+      OnCalendar = "*:0/5";
+      Unit = "bash-uptime.service";
+    };
   };
 
   systemd.services."bash-uptime" = {

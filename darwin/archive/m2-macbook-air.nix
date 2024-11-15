@@ -1,9 +1,20 @@
-{ config, pkgs, lib, home-manager, nur, myFlakes, mullvad-browser-home-manager, choose-nixpkgs, spicetify, ... }:
-
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  nur,
+  myFlakes,
+  mullvad-browser-home-manager,
+  choose-nixpkgs,
+  spicetify,
+  ...
+}:
 
 let
   hostname = "macbook-air";
-in {
+in
+{
   imports = [
     ../roles/base.nix
     ../roles/m1.nix
