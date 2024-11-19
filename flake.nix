@@ -3,9 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-lts.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Separate input for overriding
+    nixpkgs-lts.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/release-24.05";
-    # nixpkgs-pam-lid-fix.url = "github:heywoodlh/nixpkgs/lid-close-fprint-disable";
     nixpkgs-wazuh-agent.url = "github:V3ntus/nixpkgs/wazuh-agent";
     myFlakes = {
       url = "github:heywoodlh/flakes";
@@ -13,7 +12,6 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
     nixpkgs-backports.url = "github:nixos/nixpkgs/release-23.11";
-    # nixos-wsl.url = "github:nix-community/NixOS-WSL";
     darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,19 +33,10 @@
       url = "github:nixos/nixpkgs/e4235192047a058776b3680f559579bf885881da";
     };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    # Fetch the "development" branch of the Jovian-NixOS repository (Steam Deck)
-    # jovian-nixos = {
-    #   url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
-    #   flake = false;
-    # };
     nur.url = "github:nix-community/NUR";
     spicetify.url = "gitlab:heywoodlh/spicetify-nix/macos-updates-fix";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flatpaks.url = "github:GermanBread/declarative-flatpak/stable-v3";
-    # nix-on-droid = {
-    #   url = "github:nix-community/nix-on-droid/release-23.05";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     dark-wallpaper = {
       url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/e3a74d1c40086393f2b1b9f218497da2db0ff3ae/wallpapers/nix-wallpaper-dracula.png";
       flake = false;
@@ -64,20 +53,19 @@
       url = "github:pop-os/cosmic-session";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    attic.url = "github:zhaofengli/attic/6eabc3f02fae3683bffab483e614bebfcd476b21";
-    # nixos-x13s.url = "git+https://codeberg.org/adamcstephens/nixos-x13s";
+    attic.url = "github:zhaofengli/attic";
     ts-warp-nixpkgs.url = "github:heywoodlh/nixpkgs/ts-warp-init";
     qutebrowser = {
       url = "github:qutebrowser/qutebrowser";
       flake = false;
     };
-    dev-container = {
-      url = "github:heywoodlh/dockerfiles?dir=dev";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        myFlakes.follows = "myFlakes";
-      };
-    };
+    # dev-container = {
+    #   url = "github:heywoodlh/dockerfiles?dir=dev";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     myFlakes.follows = "myFlakes";
+    #   };
+    # };
     signal-ntfy.url = "github:heywoodlh/signal-ntfy-mirror";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
@@ -94,16 +82,13 @@
       self,
       nixpkgs,
       nixpkgs-stable,
-      # nixpkgs-pam-lid-fix,
       nixpkgs-wazuh-agent,
       myFlakes,
       nixpkgs-backports,
       nixpkgs-lts,
-      # nixos-wsl,
       darwin,
       home-manager,
       mullvad-browser-home-manager,
-      # jovian-nixos,
       nur,
       flake-utils,
       spicetify,
@@ -111,7 +96,6 @@
       # ssh-keys,
       osquery-fix-nixpkgs,
       flatpaks,
-      # nix-on-droid,
       dark-wallpaper,
       light-wallpaper,
       snowflake,
@@ -120,7 +104,7 @@
       attic,
       ts-warp-nixpkgs,
       qutebrowser,
-      dev-container,
+      # dev-container,
       signal-ntfy,
       lanzaboote,
       comin,
